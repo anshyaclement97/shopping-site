@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post">{% csrf_token %}
+
+    <input type="text" placeholder="House name/building name" name="address1"><br>
+    <input type="text" placeholder="Road name/Area/Colony" name="address2"><br>
+    pincode<input type="number" name="pincode"><br>
+    city<input type="text" name="city">
+    <select name="state">
+        <option>--select--</option>
+        <option>kerala</option>
+        <option>karnataka</option>
+        <option>Tamil nadu</option>
+
+    </select><br>
+    <br>
+    name<input type="text" name="cname">
+    contact number<input type="number" name="cnumber"><br>
+
+    <input type="submit" value="add address">
+
+
+
+</form>
+
+</body>
+</html>

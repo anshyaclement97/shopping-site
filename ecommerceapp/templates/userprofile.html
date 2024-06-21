@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        function filterItems() {
+
+            var searchQuery = document.getElementById('searchInput').value.toUpperCase();
+
+            var cards = document.getElementsByClassName('card');
+
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].getElementsByClassName('card-title')[0];
+
+                if (title.innerText.toUpperCase().indexOf(searchQuery) > -1) {
+                    cards[i].style.display = ""; // Show the card
+                } else {
+                    cards[i].style.display = "none"; // Hide the card
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+            integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+            integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    h6,h2{
+     color:#A52A2A;
+    }
+    .navbar-text {
+    padding-left:1220px;
+     color:#A52A2A;
+
+    }
+    .navbar a{
+     color:#A52A2A;
+     font-size:20px;
+    }
+
+   .container-fluid{
+    background-color:#FFFACD;
+    height:300vh;
+   }
+   .container{
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+   background-color:#ffdd99;
+   }
+    .card{
+       background-image:url("{% static 'image/img_15.png' %}");
+       }
+    .list-group-item{
+    background-image:url("{% static 'image/img_15.png' %}");
+
+    }
+
+</style>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-light  ">
+    <span class="navbar-text">
+        <a>{{data.fullname}}</a> <img src="{{data.propic.url}}" height="50px" width="50px" style="border-radius:50%">
+
+        <h6>{{data.email}}</h6>
+        <button type="button" class="btn"><a href="http://127.0.0.1:8000/ecommerceapp/updateprofile/{{data.id}}"
+                                             class="card-link">View Details</a></button>
+
+    </span>
+    </nav>
+    <div class="mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search for products"
+               onkeyup="filterItems()">
+    </div>
+    <div class="container">
+        <h2>𝓦𝓱𝓪𝓽 𝓪𝓻𝓮 𝔂𝓸𝓾 𝓼𝓱𝓸𝓹𝓹𝓲𝓷𝓰 𝓯𝓸𝓻 𝓽𝓸𝓭𝓪𝔂?</h2>
+        <a href="?category=all" style="font-size:20px;color:#A52A2A;">All</a>
+        <img src="{% static 'image/img_16.png' %}" style="height:70px;width:70px;border-radius:50%; margin-left:30px;">
+        <a href="?category=men" style="font-size:20px;color:#A52A2A;">Men</a>
+        <img src="{% static 'image/img_17.png' %}" style="height:70px;width:70px;border-radius:50%;margin-left:30px;">
+        <a href="?category=women" style="font-size:20px;color:#A52A2A;">Women</a>
+        <img src="{% static 'image/img_18.png' %}" style="height:70px;width:70px;border-radius:50%;margin-left:30px;">
+        <a href="?category=kids" style="font-size:20px;color:#A52A2A;">Kids</a>
+    </div>
+
+    <div class="row g-2">
+
+        {% for i in db %}
+        <div class="col-3 g-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ i.productimage.url }}" class="card-img-top" style="height:30vh;" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.product }}</h5>
+                    <p class="card-text">{{ i.desc }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ i.price }}</li>
+
+                    <li class="list-group-item">
+                        <form method="get" action="http://127.0.0.1:8000/ecommerceapp/addtocart/{{i.id}}">
+                            <select name="size" required>
+                                <option>--select--</option>
+                                {% for j in i.size %}
+                                <option value="{{ j }}">{{ j }}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            <input type="submit" value="addtocart">
+                        </form>
+                    </li>
+                </ul>
+                <div class="card-body">
+
+                    <a href="#" class="card-link">Wishlist</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

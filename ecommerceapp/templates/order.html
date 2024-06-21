@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- order.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+</head>
+<body>
+    <h1>Your Orders</h1>
+
+        <ul>
+            {% for item in order %}
+                <li>
+                    <h2>{{ item.pro_name }}</h2>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p>Price: {{ item.price }}</p>
+                    <p>Order Pic: <img src="{{ item.order_pic.url }}" alt="{{ item.pro_name }}" height="200px" width="200px"></p>
+                    <p>Ordered data:{{item.order.ordered_date}}
+
+
+                    {% if item.order_status %}
+                      <a href="/{{item.id}}">cancel order</a>
+                     <p>Order Status: <span class="ordered"><i class="fas fa-check-circle icon"></i> Ordered</span></p>
+                    {% else %}
+                    <p>Order Status: <span class="cancelled"><i class="fas fa-times-circle icon"></i> Cancelled</span></p>
+                    {% endif %}
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{[{productname: . price m quantity},....]  , total price , expected date}
+    <p>Thank you for your order!</p>
+ {% for i in order_items %}  list
+            <li>
+
+                <p>Product Name: {{ i.product }}</p>  #list key name
+                <p>Price: {{ i.price }}</p>
+                <p>Quantity: {{ i.quantity }}</p>
+            </li>
+    {% endfor %}
+
+<p>total amount:{{}}</p>
+<p>expected delivery date :{{}}</p>
+
+</body>
+</html>
